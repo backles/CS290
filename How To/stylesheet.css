@@ -1,0 +1,51 @@
+#main{
+	margin:					auto;
+	width:					60%;
+	border-width: 			2px;
+	border-style:			solid;
+	border-top-color: 		white;
+	border-bottom-color: 	white;
+	border-left-color: 		blue;
+	border-right-color: 	blue;
+	border-top-color:		blue;
+	margin-top:				10%;
+	padding-left:			10px;
+	padding-right:			10px;
+}
+
+#header{
+	margin: 				0 auto;
+	display: 				block;
+	width:					60%;
+	z-index: 				10;
+	top:					0px;
+	text-align: 			center;
+	margin-left:			auto;
+	margin-right:			auto;
+	position: 				fixed;
+	background-color:		white;
+	left: 					50%;
+    transform: 				translate(-50%, 0);
+}
+
+#navigationMenu{
+	margin: 				0 auto;
+	width:					50%;
+	align: 					center;
+	text-align: 			center;
+}
+
+#navTable{
+	border-style: 			solid;
+	border-color: 			grey;
+	margin: 				0 auto;
+}
+
+.navItem{
+	border-style: 			solid;
+	border-color: 			#87CEEB
+}
+
+code{
+	background-color: 		#E1EAED;
+}

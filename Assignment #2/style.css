@@ -1,0 +1,52 @@
+.lefthead{
+	font-weight:normal;
+	font-style:italic;
+}
+
+#specialDiv{
+	align:"left";
+	width:
+}
+
+table, th, td{
+	border: 1px solid black;
+}
+
+.outer-content{
+	display:flex;
+	width:75%;
+	float:left;
+	background-color:pink;
+	text-align:center;
+	height: 5em;
+	justify-content:center;
+	margin-top:20px;
+	margin-bottom:20px;
+	align-items:center;
+}
+
+.inner-content{
+	height:2em;
+	width:75%;
+	display:flex;
+	align:center;
+	background-color:blue;
+	justify-content:center;
+}
+
+#specialDivText{
+	display:flex;
+	align-items:center;
+}
+
+.forms{
+	clear:both;
+	padding-top: 1em;
+}
+
+.nth-of-type{
+	background-color:#00bfff;
+}
+.nth-plus1-of-type{
+	background-color:#7fff00;
+}

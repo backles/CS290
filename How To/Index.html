@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="stylesheet.css">
+		<title>How To Use Youtube API</title>
+		<script type="text/javascript" src="jquery-2.2.3.min.js"></script>
+		<script type="text/javascript" src="alphabet.js"></script>
+		<script src = "Script.js"></script>
+	</head>
+	<body>
+		<!--<center>
+			<canvas id="myCanvas" style="width:60%"></canvas>
+			<script type="text/javascript" src="bubbles.js"></script>
+			<script type="text/javascript" src="bubble_maker.js"></script>
+		</center>-->
+		<header id="header">
+			<h1>Youtube API</h1>
+			<nav class="navigationMenu">
+				<table id="navTable">
+					<tr>
+						<td class="navItem"><a href="#top">Top</a></td>
+						<td class="navItem"><a href="#aboutGuide">About the Guide</a></td>
+						<td class="navItem"><a href="#playbackDiv">Playback</a></td>
+						<td class="navItem"><a href="#QueuingDiv">Queuing</a></td>
+						<td class="navItem"><a href="#videoDiv">Example Video</a></td>
+					</tr>
+				</table>
+			</nav>
+		</header>
+		<div id="main">
+			<!--Top of Document-->
+			<div>
+				<center>
+					<h1>
+						Introduction to YouTube API
+					</h1>
+					<p>Braden Ackles CS290</p>
+				</center>
+			</div>
+			<!--Introduction to this how to-->
+			<div id="aboutGuide">
+				<h1>What This Guide Hopes to Accomplish</h1>
+				<h2>Reasoning</h2>
+					<p>
+						Youtube has become engrained in our culture we use it every day. At home, classroom, and to show
+						funny videos. I thought it only made sense to look in to how we can include youtube videos in websites
+						directly instead of just a link. Google and Youtube are a big tool but this is a breif guide of how to
+						include a youtube video in a webpage. More information is avaliable directly from google at
+						<a href="https://developers.google.com/youtube/">
+							https://developers.google.com/youtube/
+						</a>.
+						I also refrenced the iframe api refrence guide from google. Which can be found at
+						<a href="https://developers.google.com/youtube/iframe_api_reference">
+							https://developers.google.com/youtube/iframe_api_reference
+						</a>.
+					</p>
+				<h2>Background</h2>
+					<p>
+						API stands for application Program Interface. Basically how to include another program or functionality
+						in our website without having to directly include the entire thing in the website. This creates a
+						a modularity situation. You can easily include it when you need it and not include it at all when you
+						don't.
+					</p>
+					<p>
+						Youtube uses the IFrame API to embed videos in to websites. The IFrame player API adds content directly
+						to the page by the tag:
+						<code>
+							&lt;iframe&gt;
+						</code>
+						.This is a very helpful thing because it is part of the html. Which is supported by all web-browesers. In
+						The early days Youtube used flash which wasn't supported by mobile devices and required an install program
+						on computers. It was also slow clunky and not efficient.
+					</p>
+					<h2>
+						What to expect
+					</h2>
+					<p>
+						This guide will discuss how to embed a video in a website. This includes, how to control videos, and add
+						listeners for events. This will be done in javascript.
+					</p>
+					<h2>
+						Prerequisits
+					</h2>
+					<p>
+						IFrame has a few requirements
+					</p>
+					<ol>
+						<li>
+							HTML5 must be supported. This is because <code>postMessage</code> must be supported
+							This allows frames to send and recieve data bidirectionally.
+						</li>
+						<li>
+							When including a video it must be at least 480px wide X 270px tall. This inlcudes the
+							control bar. This is because due to google requirements so that videos are actually
+							viewable, the video its self must be at least 200px X 200px. 
+						</li>
+						<li>
+							There is a javascript functionality <code>onYouTubeIframeAPIReady</code>
+							must be included and implemented on pages that are using anything from the IFrame API.
+							This function is not called till the <code>.js</code> is completely downloaded.
+						</li>
+					</ol>
+			</div>
+			<!--Video Embedding-->
+			<div>
+				<h1>Video Embedding</h1>
+				<p>
+					Just like most things there is more than one way to do things. This is no exception.
+					There are two ways I found in my research:
+					<ol>
+						<li>
+							<h4>JavaScript</h4>
+							<p>
+								This is an example of how to set up IFrame using Javascript. HTML5 has
+								its own Iframe element which is the other method, however both methods still work.
+								Below is the actual code I used to embed the video in this webpage. Click <a href="Script.js">here</a> to
+								view the file.
+							</p>
+							<code class="chunk">
+								//create a variable for the elementFromPoint</br>
+									&nbsp;&nbsp;&nbsp;var video = document.createElement('script');</br>
+									
+								//point to the source</br>
+									&nbsp;&nbsp;&nbsp;video.src = "https://www.youtube.com/iframe_api";</br>
+
+								//get the video in the document by tag name</br>
+									&nbsp;&nbsp;&nbsp;var firstTag = document.getElementsByTagName('script')[0];</br>
+									
+								//Where to put the video</br>
+									&nbsp;&nbsp;&nbsp;nbsp;firstTag.parentNode.insertBefore(video, firstTag);</br>
+									
+								//Create the player</br>
+									&nbsp;&nbsp;&nbsp;var player;</br>
+									
+								//Control the player function</br>
+									&nbsp;&nbsp;&nbsp;function onYouTubeIframeAPIReady(){</br>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;player =  new YT.Player('videoDiv',{</br>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height:	 	'360',</br>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:		'480',</br>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;videoId: 	'ANzNCpsXrK4',</br>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;})</br>
+									&nbsp;&nbsp;&nbsp;}</br>
+							</code>
+							<p>
+								Before the function, the code is loading the IFrame API. Then maniupulating the DOM
+								asyncronously. The function <code>onYouTubeIframeAPIReady()</code> loads after the API
+								is downloaded. The nested function <code>YT.Player</code> takes two parameters.
+								<table border="1">
+									<tr>
+										<th>Parameter</th>
+										<th>Purpose</th>
+									</tr>
+									<tr>
+										<td>Global Variable <code>player</code></td>
+										<td>Refrence to the embeded video</td>
+									</tr>
+									<tr>
+										<td>Specifications</td>
+										<td>
+											Object of the video specifications
+											<ol>
+												<li><code>height</code>: Height of Video</li>
+												<li><code>width</code>: Width of Video</li>
+												<li><code>videoID</code>: ID of Video</li>
+												<li><code>events</code>: optional event handlers</li>
+											</ol>
+										</td>
+									</tr>
+								</table>
+							</p>
+						</li>
+						<li>
+							<h4>IFrame Element</h4>
+							Below is sample code for how to use an <code>&lt;iframe&gt;</code> element:</br></br>
+							<code class="chunk">
+								&lt;iframe width="420" height="315" <br> 
+								src="http://www.youtube.com/embed/XGSy3_Czz8k?autohide=1"&gt;<br>
+								&lt;/iframe&gt;
+							</code></br></br>
+							<table border="1">
+								<tr>
+									<th>Parameter Name</th>
+									<th>Functionality</th>
+								</tr>
+								<tr>
+									<td><code>width</code></td>
+									<td>The Width of the player</td>
+								</tr>
+								<tr>
+									<td><code>height</code></td>
+									<td>The high of the player(including the control bar)</td>
+								</tr>
+								<tr>
+									<td><code>src</code></td>
+									<td>The URL of the video</td>
+								</tr>
+							</table>
+							<h4>Optional Parameters</h4>
+							<p>
+								Of course there are also things that many won't use, but do have their
+								purpose at times. Below is a list of a few of the commonly used parameters.
+							</p>
+							<ol>
+								<li><code>autohide</code></li>
+								<li><code>loop</code></li>
+								<li><code>controls</code></li>
+								<li><code>autoplay</code></li>
+							</ol>
+						</li>
+					</ol>
+				</p>
+			</div>
+			<!--Controls-->
+			<div id="playbackDiv">
+				<h1>Playback Functionality</h1>
+				<p>
+					Now that you have your video embedded now its time to talk about controling it. There are
+					four playback control functions that will be discussed.
+				</p>
+				<table border="1">
+					<tr>
+						<th>Function</th>
+						<th>Functionality</th>
+						<th>Parameter 1</th>
+						<th>Parameter 2</th>
+					</tr>
+					<tr>
+						<td>player.playVideo()</td>
+						<td>Starts playing the video</td>
+						<td>N/A</td>
+						<td>N/A</td>
+					</tr>
+					<tr>
+						<td>player.pauseVideo()</td>
+						<td>Pauses the video</td>
+						<td>N/A</td>
+						<td>N/A</td>
+					</tr>
+					<tr>
+						<td>player.stopVideo()</td>
+						<td>Stops loading the video, not the same as paused</td>
+						<td>N/A</td>
+						<td>N/A</td>
+					</tr>
+					<tr>
+						<td>player.seekTo()</td>
+						<td>Goes to a specific time in the video and plays</td>
+						<td>Seconds</td>
+						<td>allowSeekAhead</td>
+					</tr>
+				</table>
+				<p>
+					Disclaimer: These are not all the controls. These are meerly the ones that are most
+					common in my eyes. For more information or control please go to the 
+					<a href="https://developers.google.com/youtube/player_parameters#Embedding_a_Player">
+					documentation</a>.
+				</p>
+			</div>
+			<!--Queuing Videos-->
+			<div id="QueuingDiv">
+				<h1>Queuing Functions</h1>
+				<p>
+					Even when you are only watching one video, the player still uses a queue, it is just first in the queue.
+					However you can queue multiple videos to play one right after another. This means that when one video is
+					over the player will automatically load the next video. Youtube currently supports 2 ways to call videos.
+					The <italic>Argument Syntax</italic> and the <italic>Object Syntax</italic>.
+				</p>
+				<h4>Supporting Functions</h4>
+				<p>
+					There are four functions used in both syntax listed above <code>cueVideoById</code>
+					and <code>loadVideoByID</code>. The first one <code>cueVideoById</code> adds a video
+					to the queue but does not play it till its turn. Where <code>loadVideoByID</code> makes
+					the video the first item in the queue which in turn also plays the video. There are
+					also <code>cueVideoByUrl</code> and <code>loadVideoByUrl</code>. These are exactly
+					the same as the first two functions but instead of using a video ID they use the URL
+					of the video on youtube. These functions are all very similiar but do have very small
+					differences as you can see in this code example.
+				</p>
+				<ol>
+					<li>
+						<h4>Argument Syntax:</h4>
+						<code>
+							player.cueVideoById(videoId:String, startSeconds:Number,</br> 
+								&nbsp;&nbsp;&nbsp;suggestedQuality:String):Void</br>
+							player.loadVideoById(videoId:String, startSeconds:Number,</br>
+								&nbsp;&nbsp;&nbsp;suggestedQuality:String):Void</br>
+							player.cueVideoByUrl(mediaContentUrl:String, startSeconds:Number,</br>
+								&nbsp;&nbsp;&nbsp;suggestedQuality:String):Void<br>
+							player.loadVideoByUrl(mediaContentUrl:String, startSeconds:Number,</br>
+								&nbsp;&nbsp;&nbsp;suggestedQuality:String):Void</br>
+						</code>
+					</li>
+					<li>
+						<h4>Object Syntax:</h4>
+						<code>
+							player.cueVideoById({videoId:String, startSeconds:Number,</br>
+								&nbsp;&nbsp;&nbsp;endSeconds:Number, suggestedQuality:String}):Void</br>
+							player.loadVideoById({videoId:String, startSeconds:Number,</br>
+								&nbsp;&nbsp;&nbsp;endSeconds:Number, suggestedQuality:String}):Void</br>
+							player.cueVideoByUrl({mediaContentUrl:String, startSeconds:Number,</br>
+								&nbsp;&nbsp;&nbsp;endSeconds:Number, suggestedQuality:String}):Void</br>
+							player.loadVideoByUrl({mediaContentUrl:String, startSeconds:Number,</br>
+								&nbsp;&nbsp;&nbsp;endSeconds:Number, suggestedQuality:String}):Void
+						</code>	
+					</li>
+				</ol>
+			</div>
+			<!--Example Video-->
+			<div>
+				<h1>Here is an embedded Youtube Video using the information learned</h1>
+				<center><div id="videoDiv"></div></center>
+			</div>
+		</div>
+	</body>
+</html>
